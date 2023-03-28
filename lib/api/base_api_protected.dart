@@ -1,11 +1,16 @@
+import 'package:habit_tracker/api/guard_interceptor.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
 
-class BaseApi {
-  Client client = Client();
+import 'package:http_interceptor/http/http.dart';
+
+class BaseApiProtected {
+  Client client = InterceptedClient.build(interceptors: [
+    GuardInterceptor(),
+  ]);
   String _baseUrl;
 
-  BaseApi(this._baseUrl);
+  BaseApiProtected(this._baseUrl);
 
   Future<Response?> get(String path) async {
     try {

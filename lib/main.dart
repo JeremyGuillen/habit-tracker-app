@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:habit_tracker/screens/sign_in.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:habit_tracker/screens/home.dart';
 
 Future<void> main() async {
   await dotenv.load();
@@ -15,6 +16,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Habit tracker',
+      initialRoute: '/',
+      routes: {'/': (context) => SignIn(), '/home': (context) => Home()},
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -28,13 +31,6 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         useMaterial3: true,
       ),
-      home: Scaffold(
-          appBar: AppBar(
-            // Here we take the value from the MyHomePage object that was created by
-            // the App.build method, and use it to set our appbar title.
-            title: Text('Habit tracker app'),
-          ),
-          body: SignIn()),
     );
   }
 }

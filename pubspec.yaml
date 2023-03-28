@@ -38,6 +38,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   http: ^0.13.5
   flutter_dotenv: ^5.0.2
+  flutter_secure_storage: ^8.0.0
+  http_interceptor: ^1.0.2
 
 dev_dependencies:
   flutter_test:

@@ -1,36 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:habit_tracker/api/auth/auth_api.dart';
-import 'package:habit_tracker/api/utils/flutter_store_controller.dart';
-import 'package:habit_tracker/models/sign_in_response.dart';
+import 'package:habit_tracker/api/habit/habit-api.dart';
 
-class SignIn extends StatefulWidget {
-  const SignIn({super.key});
+class Home extends StatefulWidget {
+  const Home({super.key});
 
   @override
-  State<SignIn> createState() => _SignIn();
+  State<Home> createState() => _Home();
 }
 
-class _SignIn extends State<SignIn> {
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+class _Home extends State<Home> {
+  TextEditingController habitName = TextEditingController();
+  TextEditingController habitDescription = TextEditingController();
 
-  Future<void> onSignInPress(BuildContext context) async {
-    if (emailController.text.isEmpty || passwordController.text.isEmpty) {
+  Future<void> onPressCreateApi() async {
+    if (habitName.text.isEmpty || habitDescription.text.isEmpty) {
       return;
     }
-    var authApi = AuthApi();
-    Map<String, dynamic> credentials = {
-      'email': emailController.text,
-      'password': passwordController.text,
+    var habitApi = HabitApi();
+    Map<String, dynamic> habit = {
+      'name': habitName.text,
+      'description': habitDescription.text,
+      'id_user': "0bf606b9-c5bf-4d86-a449-ded0bb904233"
     };
-
-    SignInResponse? response = await authApi.signIn(credentials);
-    if (response != null) {
-      var secureStore = FlutterStore();
-      print(response.idToken);
-      await secureStore.storeValue("jwt_token", response.idToken);
-      Navigator.pushNamed(context, "/home");
-    }
+    await habitApi.createHabit(habit);
   }
 
   @override
@@ -52,21 +44,20 @@ class _SignIn extends State<SignIn> {
                 Container(
                   padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
                   child: TextField(
-                    controller: emailController,
+                    controller: habitName,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
-                      label: Text('Email'),
+                      label: Text('Habit Name'),
                     ),
                   ),
                 ),
                 Container(
                   padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
                   child: TextField(
-                    obscureText: true,
-                    controller: passwordController,
+                    controller: habitDescription,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
-                      label: Text('Password'),
+                      label: Text('Habit Description'),
                     ),
                   ),
                 ),
@@ -76,8 +67,8 @@ class _SignIn extends State<SignIn> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         ElevatedButton(
-                            onPressed: (() => onSignInPress(context)),
-                            child: Text('Sign in'))
+                            onPressed: (() => onPressCreateApi()),
+                            child: Text('Crear Habito'))
                       ]),
                 ),
               ],
