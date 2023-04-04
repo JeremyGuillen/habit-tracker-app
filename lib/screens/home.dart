@@ -11,11 +11,15 @@ class Home extends StatefulWidget {
 class _Home extends State<Home> {
   TextEditingController habitName = TextEditingController();
   TextEditingController habitDescription = TextEditingController();
+  bool _loading = false;
 
-  Future<void> onPressCreateApi() async {
+  Future<void> onPressCreateHabit() async {
     if (habitName.text.isEmpty || habitDescription.text.isEmpty) {
       return;
     }
+    setState(() {
+      _loading = true;
+    });
     var habitApi = HabitApi();
     Map<String, dynamic> habit = {
       'name': habitName.text,
@@ -23,6 +27,10 @@ class _Home extends State<Home> {
       'id_user': "0bf606b9-c5bf-4d86-a449-ded0bb904233"
     };
     await habitApi.createHabit(habit);
+    setState(() {
+      _loading = false;
+    });
+    print("The habit has been created");
   }
 
   @override
@@ -41,6 +49,13 @@ class _Home extends State<Home> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Container(
+                  padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
+                  alignment: Alignment.center,
+                  child: Text('Create Habit',
+                      style:
+                          TextStyle(fontSize: 30, fontWeight: FontWeight.w700)),
+                ),
                 Container(
                   padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
                   child: TextField(
@@ -66,9 +81,22 @@ class _Home extends State<Home> {
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        ElevatedButton(
-                            onPressed: (() => onPressCreateApi()),
-                            child: Text('Crear Habito'))
+                        ElevatedButton.icon(
+                            onPressed: (() => onPressCreateHabit()),
+                            style: ElevatedButton.styleFrom(
+                                padding: const EdgeInsets.all(16.0)),
+                            icon: _loading
+                                ? Container(
+                                    width: 24,
+                                    height: 24,
+                                    padding: const EdgeInsets.all(2.0),
+                                    child: const CircularProgressIndicator(
+                                      color: Colors.blue,
+                                      strokeWidth: 3,
+                                    ),
+                                  )
+                                : const Icon(Icons.send),
+                            label: const Text("Create Habit")),
                       ]),
                 ),
               ],

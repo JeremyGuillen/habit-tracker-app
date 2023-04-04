@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:habit_tracker/api/auth/auth_api.dart';
 import 'package:habit_tracker/api/utils/flutter_store_controller.dart';
@@ -13,8 +15,12 @@ class SignIn extends StatefulWidget {
 class _SignIn extends State<SignIn> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  bool _loading = false;
 
   Future<void> onSignInPress(BuildContext context) async {
+    setState(() {
+      _loading = true;
+    });
     if (emailController.text.isEmpty || passwordController.text.isEmpty) {
       return;
     }
@@ -25,6 +31,9 @@ class _SignIn extends State<SignIn> {
     };
 
     SignInResponse? response = await authApi.signIn(credentials);
+    setState(() {
+      _loading = false;
+    });
     if (response != null) {
       var secureStore = FlutterStore();
       print(response.idToken);
@@ -49,6 +58,13 @@ class _SignIn extends State<SignIn> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Container(
+                  padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
+                  alignment: Alignment.center,
+                  child: Text('Sign In',
+                      style:
+                          TextStyle(fontSize: 30, fontWeight: FontWeight.w700)),
+                ),
                 Container(
                   padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
                   child: TextField(
@@ -75,9 +91,22 @@ class _SignIn extends State<SignIn> {
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        ElevatedButton(
+                        ElevatedButton.icon(
                             onPressed: (() => onSignInPress(context)),
-                            child: Text('Sign in'))
+                            style: ElevatedButton.styleFrom(
+                                padding: const EdgeInsets.all(16.0)),
+                            icon: _loading
+                                ? Container(
+                                    width: 24,
+                                    height: 24,
+                                    padding: const EdgeInsets.all(2.0),
+                                    child: const CircularProgressIndicator(
+                                      color: Colors.blue,
+                                      strokeWidth: 3,
+                                    ),
+                                  )
+                                : const Icon(Icons.lock_open),
+                            label: const Text("Sign in")),
                       ]),
                 ),
               ],
