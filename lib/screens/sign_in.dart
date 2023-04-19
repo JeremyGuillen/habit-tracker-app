@@ -31,6 +31,7 @@ class _SignIn extends State<SignIn> {
     };
 
     SignInResponse? response = await authApi.signIn(credentials);
+    print(response);
     setState(() {
       _loading = false;
     });

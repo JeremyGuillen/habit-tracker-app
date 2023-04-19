@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:habit_tracker/api/habit/habit-api.dart';
+import 'package:habit_tracker/widgets/bottomnavigationbar.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -104,6 +105,7 @@ class _Home extends State<Home> {
           )
         ],
       )),
+      bottomNavigationBar: BottomNavigation(),
     );
   }
 }
