@@ -1,36 +1,27 @@
 import 'package:flutter/material.dart';
 
-class BottomNavigation extends StatefulWidget {
-  const BottomNavigation({super.key});
+import '../app.dart';
 
-  @override
-  State<BottomNavigation> createState() => _BottomNavigation();
-}
-
-class _BottomNavigation extends State<BottomNavigation> {
-  int selectedItem = 0;
-  void _onItemTapped(int index) {
-    setState(() {
-      selectedItem = index;
-    });
-  }
+class BottomNavigation extends StatelessWidget {
+  const BottomNavigation(
+      {super.key, required this.currentTab, required this.onSelectTab});
+  final TabItem currentTab;
+  final ValueChanged<TabItem> onSelectTab;
 
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      items: const <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: "Home",
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.note_add),
-          label: "Habits",
-        ),
-        BottomNavigationBarItem(icon: Icon(Icons.settings), label: "Settings"),
+      type: BottomNavigationBarType.fixed,
+      items: [
+        _buildItem(TabItem.home),
+        _buildItem(TabItem.habits),
       ],
-      onTap: _onItemTapped,
-      currentIndex: selectedItem,
+      onTap: (index) => onSelectTab(TabItem.values[index]),
     );
+  }
+
+  BottomNavigationBarItem _buildItem(TabItem item) {
+    return BottomNavigationBarItem(
+        icon: Icon(Icons.layers, color: Colors.black), label: tabName[item]);
   }
 }

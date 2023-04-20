@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:habit_tracker/screens/sign_in.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:habit_tracker/screens/home.dart';
+import 'package:habit_tracker/app.dart';
 
 Future<void> main() async {
   await dotenv.load();
@@ -16,8 +15,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Habit tracker',
-      initialRoute: '/',
-      routes: {'/': (context) => SignIn(), '/home': (context) => Home()},
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -31,6 +28,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         useMaterial3: true,
       ),
+      home: const App(),
     );
   }
 }

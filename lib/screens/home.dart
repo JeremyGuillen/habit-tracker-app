@@ -105,7 +105,6 @@ class _Home extends State<Home> {
           )
         ],
       )),
-      bottomNavigationBar: BottomNavigation(),
     );
   }
 }
