@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class BottomNavigation extends StatefulWidget {
   const BottomNavigation({super.key});
@@ -7,12 +8,22 @@ class BottomNavigation extends StatefulWidget {
   State<BottomNavigation> createState() => _BottomNavigation();
 }
 
+enum Routes { home, habits }
+
+Map<Routes, String> routesNames = {
+  Routes.home: '/home',
+  Routes.habits: '/habits',
+};
+
 class _BottomNavigation extends State<BottomNavigation> {
   int selectedItem = 0;
   void _onItemTapped(int index) {
     setState(() {
       selectedItem = index;
     });
+    Routes route = Routes.values[index];
+    String routePath = routesNames[route]!;
+    GoRouter.of(context).go(routePath);
   }
 
   @override
