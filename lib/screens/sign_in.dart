@@ -1,6 +1,5 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:habit_tracker/api/auth/auth_api.dart';
 import 'package:habit_tracker/api/utils/flutter_store_controller.dart';
 import 'package:habit_tracker/models/sign_in_response.dart';
@@ -39,7 +38,8 @@ class _SignIn extends State<SignIn> {
       var secureStore = FlutterStore();
       print(response.idToken);
       await secureStore.storeValue("jwt_token", response.idToken);
-      Navigator.pushNamed(context, "/home");
+      // ignore: use_build_context_synchronously
+      GoRouter.of(context).go('/home');
     }
   }
 

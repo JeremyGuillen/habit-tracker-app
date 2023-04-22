@@ -1,12 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:habit_tracker/screens/habits.dart';
 import 'package:habit_tracker/screens/sign_in.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:habit_tracker/screens/home.dart';
+import 'package:habit_tracker/widgets/bottomnavigationbar.dart';
 
 Future<void> main() async {
   await dotenv.load();
   runApp(const MyApp());
 }
+
+final GoRouter _router = GoRouter(initialLocation: '/', routes: <RouteBase>[
+  GoRoute(
+    path: '/',
+    builder: (context, state) => const SignIn(),
+  ),
+  ShellRoute(
+      builder: (context, state, child) {
+        return Scaffold(
+          body: child,
+          bottomNavigationBar: const BottomNavigation(),
+        );
+      },
+      routes: [
+        GoRoute(
+          path: '/home',
+          builder: (BuildContext context, GoRouterState state) {
+            return const Home();
+          },
+        ),
+        GoRoute(
+          path: '/habits',
+          builder: (context, state) {
+            return const Habits();
+          },
+        )
+      ]),
+]);
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -14,10 +45,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Habit tracker',
-      initialRoute: '/',
-      routes: {'/': (context) => SignIn(), '/home': (context) => Home()},
+      routerConfig: _router,
       theme: ThemeData(
         // This is the theme of your application.
         //
