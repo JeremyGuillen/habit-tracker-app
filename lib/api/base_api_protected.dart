@@ -61,4 +61,8 @@ class BaseApiProtected {
   Uri _createUri(String path) {
     return Uri.https(_baseUrl, path);
   }
+
+  Map<String, dynamic> parseResponse(Response response) {
+    return jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
+  }
 }

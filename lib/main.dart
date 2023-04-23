@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:habit_tracker/screens/habit_detail.dart';
 import 'package:habit_tracker/screens/habits.dart';
 import 'package:habit_tracker/screens/sign_in.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -31,11 +32,19 @@ final GoRouter _router = GoRouter(initialLocation: '/', routes: <RouteBase>[
           },
         ),
         GoRoute(
+          path: '/detail/:habitId',
+          builder: (context, state) {
+            return HabitDetail(
+              id: state.params['habitId']!,
+            );
+          },
+        ),
+        GoRoute(
           path: '/habits',
           builder: (context, state) {
             return const Habits();
           },
-        )
+        ),
       ]),
 ]);
 
