@@ -24,6 +24,23 @@ class HabitApi extends BaseApiProtected {
     }
   }
 
+  Future<Habit?> getHabit(String id) async {
+    try {
+      var response = await get('habit/$id');
+      if (response != null) {
+        if (response.statusCode != 500) {
+          Map<String, dynamic> json = jsonDecode(response.body);
+          Habit habit = Habit.fromJson(json['items']);
+          return habit;
+        }
+      }
+      return null;
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
   Future<List<Habit>> listHabits() async {
     var response = await get('habit');
     List<Habit> loadedHabits = [];

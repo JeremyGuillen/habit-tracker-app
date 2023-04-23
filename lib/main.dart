@@ -35,7 +35,7 @@ final GoRouter _router = GoRouter(initialLocation: '/', routes: <RouteBase>[
           path: '/detail/:habitId',
           builder: (context, state) {
             return HabitDetail(
-              id: state.params['habitId']!,
+              idHabit: state.params['habitId']!,
             );
           },
         ),

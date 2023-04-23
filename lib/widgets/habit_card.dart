@@ -12,9 +12,9 @@ class HabitCard extends StatelessWidget {
   final String habitId;
 
   void onButtonTap(BuildContext context) {
-    String uri = Uri(path: '/detail$habitId').toString();
+    String uri = Uri(path: '/detail/$habitId').toString();
     print(uri);
-    GoRouter.of(context).go(uri);
+    GoRouter.of(context).push(uri);
   }
 
   @override
