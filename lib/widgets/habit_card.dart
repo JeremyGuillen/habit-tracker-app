@@ -13,7 +13,6 @@ class HabitCard extends StatelessWidget {
 
   void onButtonTap(BuildContext context) {
     String uri = Uri(path: '/detail/$habitId').toString();
-    print(uri);
     GoRouter.of(context).push(uri);
   }
 
@@ -31,10 +30,10 @@ class HabitCard extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              OutlinedButton.icon(
-                  onPressed: (() => onButtonTap(context)),
-                  icon: Icon(Icons.arrow_right),
-                  label: Text("Details")),
+              IconButton(
+                onPressed: (() => onButtonTap(context)),
+                icon: Icon(Icons.arrow_right),
+              ),
             ],
           )
         ],

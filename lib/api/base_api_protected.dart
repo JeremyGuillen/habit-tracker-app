@@ -47,7 +47,7 @@ class BaseApiProtected {
     }
   }
 
-  Future<Response?> delete(String path, Map<String, dynamic> body) async {
+  Future<Response?> delete(String path) async {
     try {
       var url = _createUri(path);
       var response = await client.post(url);

@@ -17,7 +17,7 @@ class HabitDetail extends StatefulWidget {
 
 class _HabitDetail extends State<HabitDetail> {
   bool loading = false;
-  Habit? habitDetail = null;
+  Habit? habitDetail;
   bool showError = false;
   @override
   void initState() {
@@ -26,7 +26,6 @@ class _HabitDetail extends State<HabitDetail> {
   }
 
   void _getHabitDetail() async {
-    print(widget.idHabit);
     setState(() {
       loading = true;
     });
@@ -37,6 +36,14 @@ class _HabitDetail extends State<HabitDetail> {
       showError = habit == null;
       habitDetail = habit;
     });
+  }
+
+  void _onEditPress() async {
+    print("Edit clicked");
+  }
+
+  void _onDeletePress() async {
+    print("Delete click");
   }
 
   @override
@@ -62,10 +69,62 @@ class _HabitDetail extends State<HabitDetail> {
               ],
             )
           : Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Center(
-                  child: Text(habitDetail!.name),
+                Container(
+                  padding: EdgeInsets.fromLTRB(0, 20, 0, 12),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Text(habitDetail!.name),
+                        Row(
+                          children: [
+                            Container(
+                                padding: EdgeInsets.fromLTRB(3, 0, 3, 0),
+                                child: Ink(
+                                    decoration: const ShapeDecoration(
+                                        shape: CircleBorder(),
+                                        color: Colors.lightBlue),
+                                    child: IconButton(
+                                      onPressed: _onEditPress,
+                                      icon: Icon(Icons.edit),
+                                      color: Colors.white,
+                                    ))),
+                            Container(
+                                padding: EdgeInsets.fromLTRB(3, 0, 3, 0),
+                                child: Ink(
+                                    decoration: const ShapeDecoration(
+                                        shape: CircleBorder(),
+                                        color: Colors.redAccent),
+                                    child: IconButton(
+                                      onPressed: () => showDialog(
+                                          context: context,
+                                          builder: ((context) => AlertDialog(
+                                                title: const Text(
+                                                    "Esta seguro que desea eliminar el habit"),
+                                                actions: <Widget>[
+                                                  TextButton(
+                                                    onPressed: () =>
+                                                        Navigator.of(context)
+                                                            .pop(),
+                                                    child: const Text('Cancel'),
+                                                  ),
+                                                  TextButton(
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                      _onDeletePress();
+                                                    },
+                                                    child: const Text('Delete'),
+                                                  ),
+                                                ],
+                                              ))),
+                                      icon: Icon(Icons.delete),
+                                      color: Colors.white,
+                                    ))),
+                          ],
+                        )
+                      ]),
                 )
               ],
             ),

@@ -24,6 +24,18 @@ class HabitApi extends BaseApiProtected {
     }
   }
 
+  Future<Habit?> update(Map<String, dynamic> habit, String habitId) async {
+    var response = await put('habit/$habitId', habit);
+    if (response != null) {
+      if (response.statusCode != 500) {
+        final Map<String, dynamic> decodedResponse = jsonDecode(response.body);
+        Habit habit = Habit.fromJson(decodedResponse);
+        return habit;
+      }
+    }
+    return null;
+  }
+
   Future<Habit?> getHabit(String id) async {
     try {
       var response = await get('habit/$id');
@@ -55,5 +67,15 @@ class HabitApi extends BaseApiProtected {
       }
     }
     return loadedHabits;
+  }
+
+  Future<Habit?> deleteHabit() async {
+    var response = await delete('habit');
+    if (response != null && response.statusCode == 200) {
+      final Map<String, dynamic> responseData = json.decode(response.body);
+      Habit habit = Habit.fromJson(responseData);
+      return habit;
+    }
+    return null;
   }
 }

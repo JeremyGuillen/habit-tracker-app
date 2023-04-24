@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:habit_tracker/api/habit/habit-api.dart';
 import 'package:habit_tracker/models/habits.dart';
 import 'package:habit_tracker/widgets/habit_card.dart';
@@ -38,11 +39,21 @@ class _Habits extends State<Habits> {
     });
   }
 
+  void _onAddPressed(BuildContext context) {
+    String uri = Uri(path: '/create-habit').toString();
+    GoRouter.of(context).push(uri);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: Text("Habits List"),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => _onAddPressed(context),
+          shape: CircleBorder(),
+          child: Icon(Icons.add),
         ),
         body: itemsCount > 0
             ? ListView.separated(

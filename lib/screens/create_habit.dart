@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:habit_tracker/api/habit/habit-api.dart';
 
-class Home extends StatefulWidget {
-  const Home({super.key});
+class CreateHabit extends StatefulWidget {
+  const CreateHabit({super.key});
 
   @override
-  State<Home> createState() => _Home();
+  State<CreateHabit> createState() => _CreateHabit();
 }
 
-class _Home extends State<Home> {
+class _CreateHabit extends State<CreateHabit> {
   TextEditingController habitName = TextEditingController();
   TextEditingController habitDescription = TextEditingController();
   bool _loading = false;
@@ -37,7 +38,11 @@ class _Home extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Habit tracker app'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => context.pop(),
+        ),
+        title: Text('Create Habit'),
       ),
       body: SafeArea(
           child: Column(

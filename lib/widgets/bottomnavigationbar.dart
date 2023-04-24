@@ -11,8 +11,7 @@ class BottomNavigation extends StatefulWidget {
 enum Routes { home, habits }
 
 Map<Routes, String> routesNames = {
-  Routes.home: '/home',
-  Routes.habits: '/habits',
+  Routes.habits: '/home',
 };
 
 class _BottomNavigation extends State<BottomNavigation> {
@@ -33,10 +32,6 @@ class _BottomNavigation extends State<BottomNavigation> {
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
           label: "Home",
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.note_add),
-          label: "Habits",
         ),
         BottomNavigationBarItem(icon: Icon(Icons.settings), label: "Settings"),
       ],
