@@ -42,7 +42,7 @@ class _Habits extends State<Habits> {
 
   void _onAddPressed(BuildContext context) {
     String uri = Uri(path: '/create-habit').toString();
-    GoRouter.of(context).go(uri);
+    GoRouter.of(context).push(uri);
   }
 
   @override

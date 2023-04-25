@@ -31,7 +31,9 @@ class _CreateHabit extends State<CreateHabit> {
     setState(() {
       _loading = false;
     });
-    print("The habit has been created");
+
+    // ignore: use_build_context_synchronously
+    context.push('/home');
   }
 
   @override
@@ -40,7 +42,7 @@ class _CreateHabit extends State<CreateHabit> {
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
-          onPressed: () => context.pop(),
+          onPressed: () => context.push('/home'),
         ),
         title: Text('Create Habit'),
       ),
