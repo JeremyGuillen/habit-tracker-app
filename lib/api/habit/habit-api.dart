@@ -69,8 +69,9 @@ class HabitApi extends BaseApiProtected {
     return loadedHabits;
   }
 
-  Future<Habit?> deleteHabit() async {
-    var response = await delete('habit');
+  Future<Habit?> deleteHabit(String id) async {
+    var response = await delete('habit/$id');
+    print(response?.body);
     if (response != null && response.statusCode == 200) {
       final Map<String, dynamic> responseData = json.decode(response.body);
       Habit habit = Habit.fromJson(responseData);

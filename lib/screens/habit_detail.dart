@@ -43,7 +43,14 @@ class _HabitDetail extends State<HabitDetail> {
   }
 
   void _onDeletePress() async {
-    print("Delete click");
+    if (habitDetail != null) {
+      HabitApi api = HabitApi();
+      Habit? habit = await api.deleteHabit(habitDetail!.idHabit);
+      if (habit != null) {
+        // ignore: use_build_context_synchronously
+        GoRouter.of(context).push('/home');
+      }
+    }
   }
 
   @override
@@ -53,7 +60,7 @@ class _HabitDetail extends State<HabitDetail> {
         title: Text("Habit Detail"),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
-          onPressed: () => context.pop(),
+          onPressed: () => GoRouter.of(context).push('/home'),
         ),
       ),
       body: loading || habitDetail == null

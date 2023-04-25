@@ -19,11 +19,12 @@ class _Habits extends State<Habits> {
   int itemsCount = 0;
   @override
   void initState() {
-    _loadItems();
+    _loadItems(null);
     super.initState();
   }
 
-  void _loadItems() async {
+  Future<void> _loadItems(dynamic value) async {
+    print("Hola");
     var habitsApi = HabitApi();
     setState(() {
       loading = true;
@@ -41,7 +42,7 @@ class _Habits extends State<Habits> {
 
   void _onAddPressed(BuildContext context) {
     String uri = Uri(path: '/create-habit').toString();
-    GoRouter.of(context).push(uri);
+    GoRouter.of(context).go(uri);
   }
 
   @override
