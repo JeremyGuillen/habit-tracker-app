@@ -79,7 +79,7 @@ class _UpdateHabit extends State<UpdateHabit> {
           icon: Icon(Icons.arrow_back),
           onPressed: () => context.push('/home'),
         ),
-        title: Text('Create Habit'),
+        title: Text('Update Habit'),
       ),
       body: !_loadingHabit
           ? SafeArea(
@@ -95,7 +95,7 @@ class _UpdateHabit extends State<UpdateHabit> {
                       Container(
                         padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
                         alignment: Alignment.center,
-                        child: Text('Create Habit',
+                        child: Text('Update Habit',
                             style: TextStyle(
                                 fontSize: 30, fontWeight: FontWeight.w700)),
                       ),
