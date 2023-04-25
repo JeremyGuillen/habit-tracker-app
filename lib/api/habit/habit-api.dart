@@ -26,6 +26,7 @@ class HabitApi extends BaseApiProtected {
 
   Future<Habit?> update(Map<String, dynamic> habit, String habitId) async {
     var response = await put('habit/$habitId', habit);
+    print(response?.body);
     if (response != null) {
       if (response.statusCode != 500) {
         final Map<String, dynamic> decodedResponse = jsonDecode(response.body);

@@ -24,7 +24,6 @@ class _Habits extends State<Habits> {
   }
 
   Future<void> _loadItems(dynamic value) async {
-    print("Hola");
     var habitsApi = HabitApi();
     setState(() {
       loading = true;
@@ -50,6 +49,7 @@ class _Habits extends State<Habits> {
     return Scaffold(
         appBar: AppBar(
           title: Text("Habits List"),
+          automaticallyImplyLeading: false,
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () => _onAddPressed(context),

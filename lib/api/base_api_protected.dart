@@ -39,7 +39,7 @@ class BaseApiProtected {
   Future<Response?> put(String path, Map<String, dynamic> body) async {
     try {
       var url = _createUri(path);
-      var response = await client.post(url, body: json.encode(body));
+      var response = await client.put(url, body: json.encode(body));
       return response;
     } catch (e) {
       print(e);

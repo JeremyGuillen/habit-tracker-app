@@ -5,6 +5,7 @@ import 'package:habit_tracker/screens/habits.dart';
 import 'package:habit_tracker/screens/sign_in.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:habit_tracker/screens/create_habit.dart';
+import 'package:habit_tracker/screens/update_habit.dart';
 import 'package:habit_tracker/widgets/bottomnavigationbar.dart';
 
 Future<void> main() async {
@@ -29,6 +30,14 @@ final GoRouter _router = GoRouter(initialLocation: '/', routes: <RouteBase>[
           path: '/home',
           builder: (BuildContext context, GoRouterState state) {
             return const Habits();
+          },
+        ),
+        GoRoute(
+          path: '/update-habit/:habitId',
+          builder: (BuildContext context, GoRouterState state) {
+            return UpdateHabit(
+              idHabit: state.params['habitId']!,
+            );
           },
         ),
         GoRoute(

@@ -39,7 +39,7 @@ class _HabitDetail extends State<HabitDetail> {
   }
 
   void _onEditPress() async {
-    print("Edit clicked");
+    context.push('/update-habit/${habitDetail?.idHabit}');
   }
 
   void _onDeletePress() async {
